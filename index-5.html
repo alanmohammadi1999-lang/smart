@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101b35"><title>بودجه‌یار | مدیریت هوشمند پول</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+:root{--navy:#101b35;--green:#8bd6b0;--bg:#f4f7fb;--card:#fff;--ink:#17233b;--muted:#748097;--line:#e8edf4;--red:#d65c66}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Vazirmatn',Tahoma,sans-serif}button,input,select{font:inherit}.app{max-width:1180px;margin:auto;padding:22px}.top{background:linear-gradient(125deg,var(--navy),#263c60);color:white;padding:26px;border-radius:24px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.top h1{margin:0 0 6px;font-size:25px}.top p{margin:0;color:#d4deee;font-size:13px}.monthpick{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.monthpick input{background:#ffffff18;color:white;border:1px solid #ffffff55;padding:10px;border-radius:12px}.btn{border:0;border-radius:12px;padding:10px 15px;cursor:pointer;font-weight:700}.primary{background:var(--navy);color:white}.soft{background:#e9f5ef;color:#1e694b}.danger{background:#fff0f0;color:#a33b46}.grid{display:grid;gap:15px}.stats{grid-template-columns:repeat(4,1fr);margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 5px 20px #16294a08}.stat small,.muted{color:var(--muted)}.stat strong{display:block;font-size:22px;margin-top:8px}.layout{grid-template-columns:1.1fr .9fr}.section-title{font-size:17px;margin:0 0 14px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted)}.field input,.field select{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fbfcfe;color:var(--ink);min-width:0}.wide{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.budgetrow{margin:13px 0}.budgethead{display:flex;justify-content:space-between;gap:8px;font-size:13px}.bar{height:9px;border-radius:20px;background:#edf1f6;overflow:hidden;margin-top:7px}.bar span{display:block;height:100%;background:#79c9a4;border-radius:20px}.bar.over span{background:var(--red)}.hint{background:#f0f8f4;border:1px solid #dcefe4;border-radius:14px;padding:13px;font-size:13px;line-height:1.9;margin-top:12px}.warn{background:#fff6e8;border-color:#f3e1bd}.txlist{display:flex;flex-direction:column;gap:9px}.tx{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:9px 0;gap:10px}.tx:last-child{border:0}.tx small{display:block;color:var(--muted)}.tx strong{white-space:nowrap}.empty{color:var(--muted);text-align:center;padding:25px}.footer{text-align:center;color:var(--muted);font-size:11px;padding:22px}.history{display:flex;gap:8px;flex-wrap:wrap}.history button{background:white;border:1px solid var(--line);color:var(--ink)}.hidden{display:none!important}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.app{padding:13px}.top{padding:20px}.stat strong{font-size:19px}}@media(max-width:390px){.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.stats{gap:9px}.card{padding:14px}}
+</style></head>
+<body><main class="app">
+<header class="top"><div><h1>بودجه‌یار 🌱</h1><p>دستیار هوشمند برنامه‌ریزی درآمد، هزینه و پس‌انداز</p></div><div class="monthpick"><label for="month">ماه بودجه:</label><input id="month" type="month"><button class="btn" id="newMonth">ماه جدید +</button></div></header>
+<section class="grid stats">
+<div class="card stat"><small>کل درآمد</small><strong id="sIncome">۰ تومان</strong></div><div class="card stat"><small>هزینه‌های ثبت‌شده</small><strong id="sSpent">۰ تومان</strong></div><div class="card stat"><small>پس‌انداز هدف‌گذاری‌شده</small><strong id="sSave">۰ تومان</strong></div><div class="card stat"><small>مانده قابل‌خرج</small><strong id="sLeft">۰ تومان</strong></div>
+</section>
+<section class="grid layout"><div class="grid">
+<div class="card"><h2 class="section-title">۱. تنظیم هوشمند بودجه این ماه</h2><div class="formgrid">
+<div class="field"><label>درآمد اصلی (تومان)</label><input id="income" type="number" min="0" placeholder="مثلاً ۱۵۰۰۰۰۰۰"></div>
+<div class="field"><label>درآمد جانبی (تومان)</label><input id="extraIncome" type="number" min="0" placeholder="۰"></div>
+<div class="field"><label>هزینه‌های ثابت ماه (تومان)</label><input id="fixed" type="number" min="0" placeholder="مثلاً ۲۰۰۰۰۰۰"></div>
+<div class="field"><label>هدف پس‌انداز (تومان)</label><input id="goal" type="number" min="0" placeholder="مثلاً ۳۰۰۰۰۰۰"></div>
+<div class="field wide"><label>تعداد روزهای ماه</label><input id="days" type="number" min="1" max="31" value="30"></div></div>
+<div class="actions"><button class="btn primary" id="calculate">تنظیم هوشمند بودجه</button><button class="btn soft" id="saveSetup">ذخیره تنظیمات</button></div><div id="smartHint" class="hint">اطلاعات ماه را وارد کن و «تنظیم هوشمند بودجه» را بزن تا سقف خرج هر بخش و مبلغ روزانه محاسبه شود.</div></div>
+<div class="card"><h2 class="section-title">۲. سقف پیشنهادی دسته‌ها</h2><div id="allocations"></div><p class="muted" style="font-size:11px">تقسیم پیشنهادی قابل تنظیم مجدد است و بر اساس پول باقی‌مانده پس از هزینه ثابت و هدف پس‌انداز محاسبه می‌شود.</p></div>
+<div class="card"><h2 class="section-title">۳. ثبت هزینه یا درآمد</h2><div class="formgrid">
+<div class="field"><label>نوع تراکنش</label><select id="kind"><option value="expense">هزینه</option><option value="income">درآمد</option></select></div>
+<div class="field"><label>دسته‌بندی</label><select id="category"><option>خرید</option><option>خوراک</option><option>رفت‌وآمد</option><option>پس‌انداز</option><option>پس‌انداز اضافی</option><option>هزینه پیش‌بینی‌نشده</option><option>سایر</option></select></div>
+<div class="field"><label>مبلغ (تومان)</label><input id="amount" type="number" min="1" placeholder="مبلغ"></div>
+<div class="field"><label>تاریخ</label><input id="date" type="date"></div>
+<div class="field wide"><label>توضیح</label><input id="note" maxlength="90" placeholder="مثلاً خرید دفتر"></div></div><div class="actions"><button class="btn primary" id="addTx">ثبت تراکنش</button></div></div>
+</div><div class="grid">
+<div class="card"><h2 class="section-title">نمای کلی ماه</h2><div id="overview"></div><div id="dailyHint" class="hint"></div></div>
+<div class="card"><h2 class="section-title">تراکنش‌های این ماه</h2><div id="transactions" class="txlist"></div></div>
+<div class="card"><h2 class="section-title">گزارش ماه‌های گذشته</h2><div id="history" class="history"></div></div>
+<div class="card"><h2 class="section-title">پشتیبان‌گیری</h2><p class="muted" style="font-size:12px">اطلاعات فقط در همین مرورگر ذخیره می‌شوند. برای نگهداری نسخه پشتیبان، فایل داده‌ها را دریافت کن.</p><div class="actions"><button class="btn soft" id="export">خروجی پشتیبان</button><label class="btn soft" for="importFile">بازیابی پشتیبان</label><input id="importFile" class="hidden" type="file" accept="application/json"></div></div>
+</div></section><div class="footer">بودجه‌یار · محاسبات خودکار و ذخیره محلی در دستگاه شما</div></main>
+<script>
+const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('fa-IR').format(Math.round(n||0))+' تومان', today=new Date().toISOString().slice(0,10);
+const defaults={income:0,extraIncome:0,fixed:0,goal:0,days:30,alloc:{'خرید':0,'خوراک':0,'رفت‌وآمد':0,'هزینه پیش‌بینی‌نشده':0},tx:[]};
+let db=JSON.parse(localStorage.getItem('budgetyar_v1')||'{}'),data;
+function key(){return $('month').value}
+function ensure(k){if(!db[k])db[k]=JSON.parse(JSON.stringify(defaults));return db[k]}
+function persist(){localStorage.setItem('budgetyar_v1',JSON.stringify(db))}
+function sumTx(kind){return data.tx.filter(t=>t.kind===kind).reduce((s,t)=>s+Number(t.amount),0)}
+function expenses(cat){return data.tx.filter(t=>t.kind==='expense'&&(!cat||t.category===cat)).reduce((s,t)=>s+Number(t.amount),0)}
+function totalIncome(){return Number(data.income)+Number(data.extraIncome)+sumTx('income')}
+function budgetPool(){return Math.max(0,totalIncome()-Number(data.fixed)-Number(data.goal))}
+function render(){
+ data=ensure(key());['income','extraIncome','fixed','goal','days'].forEach(id=>$(id).value=data[id]??0);
+ let inc=totalIncome(),spent=sumTx('expense'),left=inc-Number(data.fixed)-spent;
+ $('sIncome').textContent=money(inc);$('sSpent').textContent=money(spent);$('sSave').textContent=money(Number(data.goal)+expenses('پس‌انداز')+expenses('پس‌انداز اضافی'));$('sLeft').textContent=money(left);
+ let cats=['خرید','خوراک','رفت‌وآمد','هزینه پیش‌بینی‌نشده'];
+ $('allocations').innerHTML=cats.map(c=>{let cap=Number(data.alloc[c]||0),used=expenses(c),pct=cap?Math.min(100,used/cap*100):0;return '<div class="budgetrow"><div class="budgethead"><b>'+c+'</b><span>'+money(cap)+' · خرج: '+money(used)+'</span></div><div class="bar '+(used>cap?'over':'')+'"><span style="width:'+pct+'%"></span></div></div>'}).join('');
+ $('overview').innerHTML='<div class="budgetrow"><div class="budgethead"><b>بودجه قابل‌خرج</b><b>'+money(budgetPool())+'</b></div><div class="bar"><span style="width:'+Math.min(100,budgetPool()?spent/budgetPool()*100:0)+'%"></span></div></div><p class="muted">هزینه ثابت: '+money(data.fixed)+'</p><p class="muted">هزینه ثبت‌شده: '+money(spent)+'</p><p class="muted">مانده پس از هزینه ثابت و هزینه‌ها: <b>'+money(left)+'</b></p>';
+ let days=Math.max(1,Number(data.days)||30),daily=Math.max(0,left)/days;
+ $('dailyHint').textContent='میانگین سقف خرج روزانه پیشنهادی برای '+money(days)+' روز: '+money(daily)+'. با ثبت هزینه‌ها دوباره محاسبه می‌شود.';
+ let warnings=cats.filter(c=>expenses(c)>Number(data.alloc[c]||0)&&Number(data.alloc[c]||0)>0);
+ $('smartHint').className='hint'+(warnings.length?' warn':'');
+ if(warnings.length)$('smartHint').textContent='هشدار: از سقف '+warnings.join('، ')+' عبور کرده‌ای. خرج‌های بعدی را کمتر کن یا بودجه را دوباره تنظیم کن.';
+ $('transactions').innerHTML=data.tx.length?data.tx.slice().reverse().map((t,i)=>'<div class="tx"><div><b>'+t.category+'</b><small>'+t.date+' · '+(t.note||'بدون توضیح')+'</small></div><div style="text-align:left"><strong style="color:'+(t.kind==='income'?'#287451':'#bd4d59')+'">'+(t.kind==='income'?'+':'−')+money(t.amount)+'</strong><br><button class="btn danger" data-del="'+(data.tx.length-1-i)+'" style="padding:4px 8px;font-size:11px">حذف</button></div></div>').join(''):'<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
+ $('history').innerHTML=Object.keys(db).sort().reverse().map(k=>'<button class="btn" data-month="'+k+'">'+k+'</button>').join('')||'هنوز ماهی ذخیره نشده است.';
+}
+$('month').value=new Date().toISOString().slice(0,7);data=ensure(key());$('date').value=today;
+$('month').addEventListener('change',render);
+$('newMonth').onclick=()=>{let v=prompt('ماه را با فرمت میلادی YYYY-MM وارد کن:',new Date().toISOString().slice(0,7));if(v&&/^\\d{4}-\\d{2}$/.test(v)){$('month').value=v;ensure(v);persist();render()}};
+$('calculate').onclick=()=>{['income','extraIncome','fixed','goal','days'].forEach(id=>data[id]=Math.max(0,Number($(id).value)||0));let pool=budgetPool(),weights={'خرید':.30,'خوراک':.35,'رفت‌وآمد':.20,'هزینه پیش‌بینی‌نشده':.15};Object.keys(weights).forEach(c=>data.alloc[c]=Math.round(pool*weights[c]));persist();render();$('smartHint').textContent='بودجه پیشنهادی آماده شد! از '+money(pool)+' پول قابل‌تقسیم، خرید ۳۰٪، خوراک ۳۵٪، رفت‌وآمد ۲۰٪ و هزینه پیش‌بینی‌نشده ۱۵٪ در نظر گرفته شد. این تقسیم‌بندی پیشنهادی است و باید با نیازهای واقعی خودت هماهنگ شود.'};
+$('saveSetup').onclick=()=>{['income','extraIncome','fixed','goal','days'].forEach(id=>data[id]=Math.max(0,Number($(id).value)||0));persist();render();$('smartHint').textContent='تنظیمات این ماه ذخیره شد.'};
+$('addTx').onclick=()=>{let amount=Number($('amount').value);if(!amount||amount<1){alert('مبلغ معتبر وارد کن.');return}data.tx.push({kind:$('kind').value,category:$('category').value,amount,date:$('date').value||today,note:$('note').value});persist();$('amount').value='';$('note').value='';render()};
+$('transactions').addEventListener('click',e=>{let b=e.target.closest('[data-del]');if(b&&confirm('این تراکنش حذف شود؟')){data.tx.splice(Number(b.dataset.del),1);persist();render()}});
+$('history').addEventListener('click',e=>{let b=e.target.closest('[data-month]');if(b){$('month').value=b.dataset.month;render()}});
+$('export').onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='budgetyar-backup.json';a.click();URL.revokeObjectURL(a.href)};
+$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let obj=JSON.parse(await f.text());if(!obj||typeof obj!=='object')throw 0;db=obj;persist();render();alert('نسخه پشتیبان بازیابی شد.')}catch{alert('فایل پشتیبان معتبر نیست.')}};
+render();
+</script></body></html>
